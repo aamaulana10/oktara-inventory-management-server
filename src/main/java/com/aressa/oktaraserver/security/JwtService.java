@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24 jam
-    private static final String SECRET_KEY = "aressa_super_secret_jwt_key_for_demo123!@#"; // Simpan di env aslinya
+    private static final String SECRET_KEY = "aressa_super_secret_jwt_key_for_demo123!@#"; // TODO: include in env
 
     private Key getSignInKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());

@@ -7,6 +7,7 @@ import com.aressa.oktaraserver.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +34,23 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow();
+    public UserDTO getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return UserDTO.builder()
+                .userName(user.getUserName())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .roleName(user.getRole() != null ? user.getRole().getName() : null)
+                .build();
+    }
+
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+
+        return UserMapper.toDTO(user);
     }
 
     public void deleteUser(Long id) {

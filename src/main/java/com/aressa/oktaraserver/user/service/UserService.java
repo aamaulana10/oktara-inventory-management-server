@@ -5,7 +5,6 @@ import com.aressa.oktaraserver.user.mapper.UserMapper;
 import com.aressa.oktaraserver.user.model.User;
 import com.aressa.oktaraserver.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,9 +18,6 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     public User createUser(User user) {
         return userRepository.save(user);

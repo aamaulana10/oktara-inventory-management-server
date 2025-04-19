@@ -44,3 +44,9 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+	archiveBaseName.set("app")
+	archiveVersion.set("")
+	archiveClassifier.set("")
+}
